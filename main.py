@@ -1826,8 +1826,9 @@ async def track_wallets_websocket(bot):
                                     tokenName = trx_details['Token Name']
                                     tokenAdress = trx_details['Token Address']
                                     tokenchart = chart(str(tokenAdress), 1)
-                                    # fromid = '<b>Sent:</b> <a href="https://tonviewer.com/'+trx_details['Token Address'] + '">'+ str(Ammounttoken) + f' {tokenName}</a>\n<b>Received:</b> {Amountton} TON'
+                                    pool = 'EQB4whdcKBgsDHoG2j9RhTdMdghXAIyPqQzusLSUgMUNUseo'
                                     fromid = f"👉️ <b>Sent:</b> {Amountton} TON\n👈️ <b>Received:</b> {Ammounttoken} <a href=\"https://tonviewer.com/{trx_details['Token Address']}\"> {tokenName}</a>"
+                                    geckoterminal = '‎ \n🦎 <b>Check on:</b> <a href="https://www.geckoterminal.com/ton/pools/' + pool + '">GeckoTerminal </a>\n'
 
                                     for chat_id in Wallets[str(response_data['params']["account_id"])]['chats']:
                                         notfy = Wallets[str(response_data['params']["account_id"])]['notifications'][
@@ -1835,7 +1836,7 @@ async def track_wallets_websocket(bot):
                                         if str(notfy[0]) == 'True':
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👨‍💻 <a href="https://tonviewer.com/' + str(response_data['params'][
-                                                                                                  "account_id"]) + '">' + header + '</a>\n' + Operation + '\n' + fromid
+                                                                                                  "account_id"]) + '">' + header + '</a>\n' + Operation + '\n' + fromid + '\n' + geckoterminal
                                             # await bot.send_message(chat_id, msg, parse_mode='HTML',disable_web_page_preview=True)
                                             await bot.send_photo(chat_id, photo=tokenchart, caption=msg,
                                                                  parse_mode='HTML')
