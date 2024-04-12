@@ -1820,7 +1820,7 @@ async def track_wallets_websocket(bot):
                                         # ----------SWAP-------------
                                 elif str(trx_details['Transaction Type']) == 'Sent Token Swap':
                                     Operation = '💫 <a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">SWAP </a>'
+                                        'TXid'] + '">SWAP </a>‎ \n'
                                     Amountton = int(trx_details['Amount Ton']) / 1000000000
                                     Ammounttoken = round(float(trx_details['Amount token']) / 1000000000, 4)
                                     tokenName = trx_details['Token Name']
@@ -1841,7 +1841,7 @@ async def track_wallets_websocket(bot):
                                                                  parse_mode='HTML')
                                 elif str(trx_details['Transaction Type']) == 'Received Token Swap':
                                     Operation = '💫 <a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">SWAP </a>'
+                                        'TXid'] + '">SWAP </a>‎ \n'
                                     Amountton = int(trx_details['Amount Ton']) / 1000000000
                                     Ammounttoken = round(float(trx_details['Amount token']) / 1000000000, 4)
                                     tokenName = trx_details['Token Name']
@@ -1861,7 +1861,7 @@ async def track_wallets_websocket(bot):
                                                                  parse_mode='HTML')
                                 elif str(trx_details['Transaction Type']) == 'Sent TON Swap':
                                     Operation = '💫 <a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">SWAP </a>'
+                                        'TXid'] + '">SWAP </a>‎ \n'
                                     Amountton = int(trx_details['Amount Ton']) / 1000000000
                                     Ammounttoken = round(float(trx_details['Amount token']) / 1000000000, 4)
                                     tokenName = trx_details['Token Name']
@@ -1881,7 +1881,7 @@ async def track_wallets_websocket(bot):
                                                                  parse_mode='HTML')
                                 elif str(trx_details['Transaction Type']) == 'Received TON Swap':
                                     Operation = '💫 <a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">SWAP </a>'
+                                        'TXid'] + '">SWAP </a>‎ \n'
                                     Amountton = int(trx_details['Amount Ton']) / 1000000000
                                     Ammounttoken = round(float(trx_details['Amount token']) / 1000000000, 4)
                                     tokenName = trx_details['Token Name']
