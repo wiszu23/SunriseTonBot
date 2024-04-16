@@ -58,7 +58,7 @@ def chart(token, per):
     # else:
     #      per = 900
     for i in range(0,len(timestamp)):
-        if timestamp[timecompare]-timestamp[i] >= float(frame):
+        if timestamp[timecompare]-timestamp[i] >= float(frame) or (i == (len(timestamp) -1)):
                 pricess = price[timecompare:(i + 1)]
                 highest.append(max(pricess))
                 lowest.append(min(pricess))
