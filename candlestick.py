@@ -54,11 +54,11 @@ def chart(token, per):
     ohlc = []
     # if len(timestamp) < 100:/2e5
     frame = 60 * int(per)
-    print(frame)
+    # print(frame)
     # else:
     #      per = 900
     for i in range(0,len(timestamp)):
-        if timestamp[timecompare]-timestamp[i] >= float(frame) or (i == (len(timestamp) -1)):
+        if timestamp[timecompare]-timestamp[i] >= float(frame) or (i == (len(timestamp) -2)):
                 pricess = price[timecompare:(i + 1)]
                 highest.append(max(pricess))
                 lowest.append(min(pricess))

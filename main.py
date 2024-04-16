@@ -1906,7 +1906,7 @@ async def track_wallets_websocket(bot):
                     except json.JSONDecodeError:
                         print("Received non-JSON response:", response)
         except Exception as e:
-            print("Connection closed, attempting to reconnect")
+            print(f"Connection closed, attempting to reconnect caused by {e}")
             await asyncio.sleep(5)
 
 
