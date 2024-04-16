@@ -15,7 +15,7 @@ from database_handler import readWallets, userWalletsCheck, saveWallet, checkwal
 from formating import format_wallets, serialize_inline_keyboard
 from userHandler import userSettings, readUserdata, create_user, update_subscription_plan, alertSub, updateSub, \
     update_balance, getUserReferrals, hashReferal, toggle_ads
-from dataprocess import fetch_image, transactionsEvent
+from dataprocess import fetch_image, transactionsEvent, Getpools
 from subscription import generate_payment_link, checkTransactions, livetonprice, getsubByUser, verifyTimestamp, \
     ReadAllplans
 from candlestick import chart
@@ -1722,7 +1722,7 @@ async def track_wallets_websocket(bot):
                                 elif str(trx_details['Transaction Type']) == 'Sent TON':
                                     price = int(trx_details['Amount']) / 1000000000
                                     Operation = '<a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">SENT: </a>' + str(price) + ' ' + str(trx_details['Token Name'])
+                                        'TXid'] + '">SENT: </a>' + str(price) + ' ' + str(trx_details['Token Name 2'])
 
                                     # Name = '<b>Amount:</b> '
                                     fromid = 'To:' + ' <a href="https://tonviewer.com/' + trx_details[
@@ -1791,7 +1791,7 @@ async def track_wallets_websocket(bot):
                                 elif str(trx_details['Transaction Type']) == 'Received TON':
                                     price = int(trx_details['Amount']) / 1000000000
                                     Operation = '<a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">Received:</a> ' + str(price) + ' ' + str(trx_details['Token Name'])
+                                        'TXid'] + '">Received:</a> ' + str(price) + ' ' + str(trx_details['Token Name 2'])
 
                                     fromid = '<b>From: </b>' + ' <a href="https://tonviewer.com/' + trx_details[
                                         'Sender Address'] + '">' + format_wallets(
@@ -1820,15 +1820,15 @@ async def track_wallets_websocket(bot):
                                         # ----------SWAP-------------
                                 elif str(trx_details['Transaction Type']) == 'Sent Token Swap':
                                     Operation = '💫 <a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">SWAP </a>‎ \n'
+                                        'TXid'] + '">SWAP </a>\U0000200E \n'
                                     Amountton = int(trx_details['Amount Ton']) / 1000000000
                                     Ammounttoken = round(float(trx_details['Amount token']) / 1000000000, 4)
                                     tokenName = trx_details['Token Name']
                                     tokenAdress = trx_details['Token Address']
                                     tokenchart = chart(str(tokenAdress), 1)
-                                    pool = 'EQB4whdcKBgsDHoG2j9RhTdMdghXAIyPqQzusLSUgMUNUseo'
+                                    pool = Getpools(tokenAdress)
                                     fromid = f"👉️ <b>Sent:</b> {Amountton} TON\n👈️ <b>Received:</b> {Ammounttoken} <a href=\"https://tonviewer.com/{trx_details['Token Address']}\"> {tokenName}</a>"
-                                    geckoterminal = '‎ \n🦎 <b>Check on:</b> <a href="https://www.geckoterminal.com/ton/pools/' + pool + '">GeckoTerminal </a>\n'
+                                    geckoterminal = '\U0000200E \n🦎 <b>Check on:</b> <a href="https://www.geckoterminal.com/ton/pools/' + pool + '">GeckoTerminal </a>\n'
 
                                     for chat_id in Wallets[str(response_data['params']["account_id"])]['chats']:
                                         notfy = Wallets[str(response_data['params']["account_id"])]['notifications'][
@@ -1849,6 +1849,8 @@ async def track_wallets_websocket(bot):
                                     tokenAdress = trx_details['Token Address']
                                     tokenchart = chart(str(tokenAdress), 1)
                                     fromid = f'👉 <b>Sent:</b> {Ammounttoken} <a href="https://tonviewer.com/{tokenAdress}"> {tokenName}</a>\n👈 <b>Received:</b> {Amountton} TON '
+                                    pool = Getpools(tokenAdress)
+                                    geckoterminal = '\U0000200E \n🦎 <b>Check on:</b> <a href="https://www.geckoterminal.com/ton/pools/' + pool + '">GeckoTerminal </a>\n'
 
                                     for chat_id in Wallets[str(response_data['params']["account_id"])]['chats']:
                                         notfy = Wallets[str(response_data['params']["account_id"])]['notifications'][
@@ -1856,7 +1858,7 @@ async def track_wallets_websocket(bot):
                                         if str(notfy[0]) == 'True':
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👨‍💻 <a href="https://tonviewer.com/' + str(response_data['params'][
-                                                                                                  "account_id"]) + '">' + header + '</a>\n' + Operation + '\n' + fromid
+                                                                                                  "account_id"]) + '">' + header + '</a>\n' + Operation + '\n' + fromid + '\n' + geckoterminal
                                             # await bot.send_message(chat_id, msg, parse_mode='HTML',disable_web_page_preview=True)
                                             await bot.send_photo(chat_id, photo=tokenchart, caption=msg,
                                                                  parse_mode='HTML')
@@ -1903,7 +1905,7 @@ async def track_wallets_websocket(bot):
                                             # ----------------------------------
                     except json.JSONDecodeError:
                         print("Received non-JSON response:", response)
-        except websockets.ConnectionClosed:
+        except Exception as e:
             print("Connection closed, attempting to reconnect")
             await asyncio.sleep(5)
 

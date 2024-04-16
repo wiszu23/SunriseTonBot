@@ -284,7 +284,17 @@ def trxDetails(trx_id):
         print("Transaction not found.")
     else:
         print(f"Error: {response.status_code}")
+def Getpools(address):
+     url = f'https://api.geckoterminal.com/api/v2/networks/ton/tokens/{address}/pools'
+     headers = {'Accept': 'application/json'}
+     response = req.get(url=url,headers=headers)
+    #  print(response.json())
+     data = response.json()
+     if 'data' in data:
+          
+        return str(data['data'][0]['id']).strip('ton_')
 # transaac = trxDetails('e1b28bc0af9c59fe66ea379da1a83a930124930662d3857a227a66bf68db1fe2')
 # transaac = trxDetails('0363d9dfe1588917a2e80917cbbf724033b6c2e7cd58ec8886a9c4f6547563ee')
 # print(transaac)
-# print(transactionsEvent('UQCpPk07gntkBeVZwwnDmafowISi5wTDEtbI8onc-BMjJ9bT', '3f7c3420337993340b284f20e2793546d51fdcb639e61213f05c3a279f2852f4'))
+# print(transactionsEvent('0:7270a85fb946f9e4160d69af20588e8247ab68ff7dbac70f52cc4b30910ec194', '626de877da6780a217011fa6ce353ebed7e4536192c84a6eafda8c9bf90e0eb9'))
+# print(Getpools('EQBZ_cafPyDr5KUTs0aNxh0ZTDhkpEZONmLJA2SNGlLm4Cko'))
