@@ -20,6 +20,9 @@ from subscription import generate_payment_link, checkTransactions, livetonprice,
     ReadAllplans
 from candlestick import chart
 
+import telegram
+from telegram import ReplyKeyboardMarkup, KeyboardButton
+
 # from test import transactionsNFT
 
 load_dotenv(find_dotenv())
@@ -36,6 +39,7 @@ async def deleteMsg(bot, chat_id, msg_id):
 
 
 @bot.message_handler(commands=['start'])
+@bot.message_handler(func=lambda message: message.text == "𝐇𝐎𝐌𝐄")
 async def start(message):
     referral_id = message.text.split()[1] if len(message.text.split()) > 1 else None
     user = await readUserdata(str(message.from_user.id))
@@ -43,6 +47,12 @@ async def start(message):
     if not user:
         await create_user(str(message.from_user.id), referral_id, username)
         file_path = 'languages/eng.yml'
+
+        przycisk = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+        menu = types.InlineKeyboardButton("𝐇𝐎𝐌𝐄")
+        przycisk.row(menu)
+
+        await bot.send_message(message.chat.id, '🪂', reply_markup=przycisk)
     else:
         if str(user[5]) != 'free':
             await verifyTimestamp(user[0])
@@ -54,20 +64,23 @@ async def start(message):
         language = yaml.safe_load(file)
 
     markup = types.InlineKeyboardMarkup()
-    walletss = types.InlineKeyboardButton(f"👛 {language['Wallets']}", callback_data="Edit")
+
+    walletss = types.InlineKeyboardButton(f"💼 {language['Wallets']}", callback_data="Edit")
     markup.row(walletss)
+
     coin = types.InlineKeyboardButton(f"\U0001F4B0 {language['Coins']}", callback_data="coin")
-    nfts = types.InlineKeyboardButton(f"🖼️ {language['NFTs']}", callback_data="nfts")
+    nfts = types.InlineKeyboardButton(f"🌅️ {language['NFTs']}", callback_data="nfts")
     markup.row(coin, nfts)
 
     Referals = types.InlineKeyboardButton(f"\U0001F465 {language['Referals']}", callback_data="ref")
     subscription = types.InlineKeyboardButton(f"\U0001F4B3 {language['Subscription']}", callback_data="sub")
     markup.row(Referals, subscription)
-    # faq = types.InlineKeyboardButton(f"\U00002753 {language['AD']}", url="https://t.me/c/1874312718/31")
-    faq = types.InlineKeyboardButton(f"📮 AD", url="https://t.me/c/1874312718/31")
+
+    faq = types.InlineKeyboardButton(f"📬 AD", callback_data="faq")
     settings = types.InlineKeyboardButton(f"\U00002699 {language['Settings']}", callback_data="setting")
     markup.row(faq, settings)
-    msg = f"\n ⭐⭐⭐⭐⭐⭐\n \n- <b>{language['Welcome']} {username}!</b> -\n \n⭐⭐⭐⭐⭐⭐ \n "
+
+    msg = f" <b>{language['Welcome']} {username}!️ </b>"
 
     try:
         # await bot.send_message(message.chat.id, msg, reply_markup=markup, parse_mode='HTML')
@@ -99,10 +112,10 @@ async def start(message):
 #         markup.row(naame)
 #         stars2 = types.InlineKeyboardButton("⭐⭐⭐⭐⭐⭐", callback_data="star")
 #         markup.row(stars2)
-#         walletss = types.InlineKeyboardButton("👛 Wallets", callback_data="Edit")
+#         walletss = types.InlineKeyboardButton("💼 Wallets", callback_data="Edit")
 #         markup.row(walletss)
 #         coin = types.InlineKeyboardButton("\U0001F4B0 Coins", callback_data="coin")
-#         nfts = types.InlineKeyboardButton("🖼️ NFTs", callback_data="nfts")
+#         nfts = types.InlineKeyboardButton("🌅️ NFTs", callback_data="nfts")
 #         markup.row(coin, nfts)
 
 #         Referals = types.InlineKeyboardButton("\U0001F465 Referals", callback_data="ref")
@@ -141,6 +154,7 @@ async def handle_button_click(call):
     subplan = user[5]
     print(subplan)
     username = call.from_user.username
+
     if not user:
         await create_user(str(call.from_user.id), '', username)
     else:
@@ -148,10 +162,13 @@ async def handle_button_click(call):
             userupdated = await verifyTimestamp(user[0])
             if userupdated:
                 subplan = 'free'
+
     wallets = await userWalletsCheck(str(call.from_user.id))
     userWallets = await checkwalletofuser(str(call.from_user.id))
-    langflag = {'eng': '🇬🇧', 'fr': '🇫🇷', 'pl': '🇵🇱', 'ar': '🇸🇦', "ru": '🇷🇺', "fa": '🇮🇷', "be": '🇧🇾', "rum": '🇷🇴',
-                "uzb": '🇺🇿', "ua": '🇺🇦', "de": "🇩🇪", "es": "🇪🇸", "ja": "🇯🇵", "zh": "🇨🇳"}
+    langflag = {'ar': '🇸🇦', "be": '🇧🇾', "de": "🇩🇪", 'eng': '🇬🇧', "es": "🇪🇸", "fa": '🇮🇷', 'fr': '🇫🇷', "ja": "🇯🇵",
+                'pl': '🇵🇱', "ru": '🇷🇺', "rum": '🇷🇴',
+                "ua": '🇺🇦', "uzb": '🇺🇿', "zh": "🇨🇳"}
+
     print(user)
     if subplan.upper() == 'STANDARD':
         allowedwallets = 50
@@ -186,12 +203,13 @@ async def handle_button_click(call):
         language = yaml.safe_load(file)
     if call.data in ['coin', 'nfts']:
         try:
-            await bot.send_message(call.message.chat.id, "SOON❗️🌒")
+            await bot.send_message(call.message.chat.id, "🌒 SOON❗")
         except asyncio_helper.ApiException as e:
             if e.result.status_code in (400, 401, 403, 404, 429, 500, 502):
                 print("message cant be sent")
             else:
                 raise
+
     if call.data == "Add":
         if len(userWallets) < allowedwallets:
             is_wallet_processed = False
@@ -325,7 +343,7 @@ async def handle_button_click(call):
                                 Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}",
                                                                   callback_data="back")
                                 markup1.add(Back)
-                                await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+                                # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
                                 try:
                                     await bot.send_message(chat_id=call.message.chat.id,
                                                            text=msg,
@@ -370,7 +388,7 @@ async def handle_button_click(call):
             markup1.row(Add)
             Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
             markup1.row(Back)
-            await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+            # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
             try:
                 await bot.send_message(chat_id=call.message.chat.id,
                                        text=msg,
@@ -413,7 +431,7 @@ async def handle_button_click(call):
             Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
             markup1.row(Back)
             # print(call.message.message_id)
-            await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+            # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
             try:
                 await bot.send_message(chat_id=call.message.chat.id,
                                        text=msg,
@@ -671,7 +689,6 @@ async def handle_button_click(call):
                     wal = types.InlineKeyboardButton(wlmsg, callback_data=wallet[0])
                     markup1.row(wal)
         else:
-
             for i in range(0, 7):
 
                 if wallets[i][4] == 'notag':
@@ -747,14 +764,14 @@ async def handle_button_click(call):
                         else:
                             raise
 
-
     elif 'back' in call.data:
         text_conditions = [
             language['Choose Saved Wallet'] in call.message.text,
             language['Your Settings'] in call.message.text,
             language['Your Referrals'] in call.message.text,
             language['You Have No Saved Wallets'] in call.message.text,
-            language['Subscription'] in call.message.text
+            language['Subscription'] in call.message.text,
+            'Banner' in call.message.text
         ]
         if any(text_conditions):
             username = str(call.from_user.first_name)
@@ -768,7 +785,7 @@ async def handle_button_click(call):
             Referals = types.InlineKeyboardButton(f"\U0001F465 {language['Referals']}", callback_data="ref")
             subscription = types.InlineKeyboardButton(f"\U0001F4B3 {language['Subscription']}", callback_data="sub")
             markup2.row(Referals, subscription)
-            faq = types.InlineKeyboardButton(f"📮 AD", url="https://t.me/c/1874312718/31")
+            faq = types.InlineKeyboardButton(f"📬 AD", callback_data="faq")
             settings = types.InlineKeyboardButton(f"⚙️ {language['Settings']}", callback_data="setting")
             # settings = types.InlineKeyboardButton(f"\U00002699 {language['Settings']}", callback_data="setting")
             markup2.row(faq, settings)
@@ -786,7 +803,7 @@ async def handle_button_click(call):
             #         print("message cant be sent")
             #     else:
             #         raise
-            await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+            # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
             try:
                 with open('logomsg.jpg', 'rb') as file:
                     await bot.send_photo(call.message.chat.id, photo=file, caption=msg, reply_markup=markup2,
@@ -965,9 +982,9 @@ async def handle_button_click(call):
                 allowednfts = 2
                 allowedmsgperh = 10
             markup6 = types.InlineKeyboardMarkup()
-            walletss = f"👛 {language['Wallets']} {wallets}/{allowedwallets}"
+            walletss = f"💼 {language['Wallets']} {wallets}/{allowedwallets}"
             coin = f"\U0001F4B0 {language['Coins']} {coins}/{allowedcoins}"
-            nfts = f"🖼️ {language['NFTs']} {nftss}/{allowednfts}"
+            nfts = f"🌅️ {language['NFTs']} {nftss}/{allowednfts}"
             msgperh = f"{allowedmsgperh} {language['Messages Per Hour']}"
 
             purchase = types.InlineKeyboardButton(f"{language['Purchase']}", callback_data="purchase")
@@ -989,6 +1006,7 @@ async def handle_button_click(call):
                     raise
         else:
             print(call.message.text)
+
     elif call.data == "sub":
         userSetting = await getsubByUser(str(call.from_user.id))
         plan = str(userSetting[1]).upper()
@@ -1024,9 +1042,9 @@ async def handle_button_click(call):
             allowednfts = 2
             allowedmsgperh = 10
         markup6 = types.InlineKeyboardMarkup()
-        walletss = f"👛 {language['Wallets']} {wallets}/{allowedwallets}"
+        walletss = f"💼 {language['Wallets']} {wallets}/{allowedwallets}"
         coin = f"\U0001F4B0 {language['Coins']} {coins}/{allowedcoins}"
-        nfts = f"🖼️ {language['NFTs']} {nftss}/{allowednfts}"
+        nfts = f"🌅️ {language['NFTs']} {nftss}/{allowednfts}"
         msgperh = f"{allowedmsgperh} {language['Messages Per Hour']}"
 
         purchase = types.InlineKeyboardButton(f"{language['Purchase']}", callback_data="purchase")
@@ -1035,7 +1053,7 @@ async def handle_button_click(call):
         markup6.add(Back)
         msgsub = f"<b>{language['Subscription']} {language['Plan']}:</b> {plan}\n \n{until}\n \n{walletss}\n{coin}\n{nfts}\n{msgperh}"
 
-        await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+        # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
         try:
             await bot.send_message(chat_id=call.message.chat.id,
                                    text=msgsub,
@@ -1046,6 +1064,7 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
+
     elif call.data == "purchase":
         print('purchase')
         plans = ['STANDARD', 'PREMIUM', 'PRO']
@@ -1082,7 +1101,7 @@ async def handle_button_click(call):
             msgPur = f"<b>{plan} {language['PLAN']}</b>\n - {allowedwallets} {language['Wallets']}\n - {allowedcoins} {language['Coins']}\n - {allowednfts} {language['NFTs']}\n - {allowedmsgperh} {language['Messages Per Hour']}"
             if plan == 'STANDARD':
 
-                await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+                # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
                 try:
                     message = await bot.send_message(chat_id=call.message.chat.id,
                                                      text=msgPur,
@@ -1187,7 +1206,7 @@ async def handle_button_click(call):
         msgreferal = f" \n\n{referallink}\n\n👥 {language['Your Referrals']}: {len(UserReferrals)}/10    \n\n💰 {language['Your Balance']}: {UserBalance[4]}$"
         # <b>{language['Your Referal Code']}: </b>{referalcode}
 
-        await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+        # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
         try:
             await bot.send_message(chat_id=call.message.chat.id,
                                    text=msgreferal,
@@ -1245,8 +1264,34 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
-    elif call.data == "setting":
+    elif call.data == "faq":
+        markup10 = types.InlineKeyboardMarkup()
+        contact = types.InlineKeyboardButton("📩 Contact", url='https://t.me/SunriseTonBotContact')
+        markup10.row(contact)
+        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        markup10.row(Back)
+        msgcontact = (
+            "<b>Banner on Sunrise Ton Bot:</b> \n ⭐️ $40 for 1 day \n ⭐️ $100 for 3 days \n "
+            "⭐️ $200 for 1 week \n ⭐️ $600 for 4 weeks \n‎\n <b>Direct Message to STB users:</b> \n "
+            "⭐️ $200 for 1 Mass DM to users \n‎\n <b>Banner and DM Bundle for 1 week:</b> \n ⭐️ Mass DM Post to STB users"
+            " \n ⭐️ Banner for 7 days \n ⭐️ $360 (savings of $40) \n‎\n _________________________________ "
+            "\n‎\n<strong> Specifications for Banner: </strong>\n - text with maximum 60 characters \n - link(s) embedded in the text"
+            "\n - jpg, png, or mp4 with sound \n - 3:1 size ratio, ex: 1920x640. 1200x400 \n‎\n<strong>Specifications for Mass DM:</strong>"
+            "\n - Any text as you please \n - Optional banner image or video \n - No custom emoji's \n _________________________________"
+            "\n‎\n<i>Note: We reserve the right to refuse a promo. If it's discovered to be a scam, "
+            "it will be revoked or cancelled, and not refunded.</i>")
+        try:
+            await bot.send_message(chat_id=call.message.chat.id,
+                                   text=msgcontact,
+                                   reply_markup=markup10,
+                                   parse_mode='HTML')
+        except asyncio_helper.ApiException as e:
+            if e.result.status_code in (400, 401, 403, 404, 429, 500, 502):
+                print("message cant be sent")
+            else:
+                raise
 
+    elif call.data == "setting":
         userSetting = await readUserdata(str(call.from_user.id))
         if userSetting[9] == "True":
             ad = 'ON'
@@ -1270,7 +1315,7 @@ async def handle_button_click(call):
         markup6.add(Back)
         msgsetting = f"\U00002699  <b>{language['Your Settings']}</b>"
 
-        await deleteMsg(bot, call.message.chat.id, call.message.message_id)
+        # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
         try:
             await bot.send_message(chat_id=call.message.chat.id,
                                    text=msgsetting,
@@ -1340,28 +1385,28 @@ async def handle_button_click(call):
     elif call.data == "lang":
         markup6 = types.InlineKeyboardMarkup()
 
-        eng = types.InlineKeyboardButton("🇬🇧 ENG", callback_data="eng")
-        fr = types.InlineKeyboardButton("🇫🇷 FR", callback_data="fr")
-        markup6.row(eng, fr)
-        pl = types.InlineKeyboardButton("🇵🇱 PL", callback_data="pl")
         ar = types.InlineKeyboardButton("🇸🇦 AR", callback_data="ar")
-        markup6.row(pl, ar)
-        ru = types.InlineKeyboardButton("🇷🇺 RU", callback_data="ru")
-        ua = types.InlineKeyboardButton("🇺🇦 UA", callback_data="ua")
-        markup6.row(ru, ua)
-        uzb = types.InlineKeyboardButton("🇺🇿 UZB", callback_data="uzb")
-        rum = types.InlineKeyboardButton("🇷🇴 RUM", callback_data="rum")
-        markup6.row(uzb, rum)
-        fa = types.InlineKeyboardButton("🇮🇷 FA", callback_data="fa")
         be = types.InlineKeyboardButton("🇧🇾 BE", callback_data="be")
-        markup6.row(fa, be)
-        # ,"de","es","ja","zh"
+        markup6.row(ar, be)
         de = types.InlineKeyboardButton("🇩🇪 DE", callback_data="de")
         es = types.InlineKeyboardButton("🇪🇸 ES", callback_data="es")
         markup6.row(de, es)
+        eng = types.InlineKeyboardButton("🇬🇧 ENG", callback_data="eng")
+        fa = types.InlineKeyboardButton("🇮🇷 FA", callback_data="fa")
+        markup6.row(eng, fa)
+        fr = types.InlineKeyboardButton("🇫🇷 FR", callback_data="fr")
         ja = types.InlineKeyboardButton("🇯🇵 JA", callback_data="ja")
+        markup6.row(fr, ja)
+        pl = types.InlineKeyboardButton("🇵🇱 PL", callback_data="pl")
+        ru = types.InlineKeyboardButton("🇷🇺 RU", callback_data="ru")
+        markup6.row(pl, ru)
+        rum = types.InlineKeyboardButton("🇷🇴 RUM", callback_data="rum")
+        ua = types.InlineKeyboardButton("🇺🇦 UA", callback_data="ua")
+        markup6.row(rum, ua)
+        uzb = types.InlineKeyboardButton("🇺🇿 UZB", callback_data="uzb")
         zh = types.InlineKeyboardButton("🇨🇳 ZH", callback_data="zh")
-        markup6.row(ja, zh)
+        markup6.row(uzb, zh)
+
         Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
         markup6.row(Back)
         msgsetting = f"<b>{language['Choose Prefered Language']}: </b>"
@@ -1715,7 +1760,7 @@ async def track_wallets_websocket(bot):
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👨‍💻' + '<a href="https://tonviewer.com/' + str(
                                                 response_data['params'][
-                                                    "account_id"]) + '">' + header + '</a> 👛' + '\n ➡️ ' + Operation + '\n' + fromid
+                                                    "account_id"]) + '">' + header + '</a> 💼' + '\n ➡️ ' + Operation + '\n' + fromid
                                             # await bot.send_message(chat_id, msg, parse_mode='HTML',disable_web_page_preview=True)
                                             await bot.send_photo(chat_id, photo=tokenchart, caption=msg,
                                                                  parse_mode='HTML')
@@ -1746,7 +1791,7 @@ async def track_wallets_websocket(bot):
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👨‍💻' + '<a href="https://tonviewer.com/' + str(
                                                 response_data['params'][
-                                                    "account_id"]) + '">' + header + '</a> 👛' + '\n ➡️ ' + Operation + '\n' + fromid
+                                                    "account_id"]) + '">' + header + '</a> 💼' + '\n ➡️ ' + Operation + '\n' + fromid
                                             await bot.send_message(chat_id, msg, parse_mode='HTML',
                                                                    disable_web_page_preview=True)
                                             # --------------------------
@@ -1783,7 +1828,7 @@ async def track_wallets_websocket(bot):
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👨‍💻' + '<a href="https://tonviewer.com/' + str(
                                                 response_data['params'][
-                                                    "account_id"]) + '">' + header + '</a> 👛' + '\n  ⬅️' + Operation + '\n' + fromid
+                                                    "account_id"]) + '">' + header + '</a> 💼' + '\n  ⬅️' + Operation + '\n' + fromid
                                             # await bot.send_message(chat_id, msg, parse_mode='HTML',disable_web_page_preview=True)
                                             await bot.send_photo(chat_id, photo=tokenchart, caption=msg,
                                                                  parse_mode='HTML')
@@ -1791,7 +1836,8 @@ async def track_wallets_websocket(bot):
                                 elif str(trx_details['Transaction Type']) == 'Received TON':
                                     price = int(trx_details['Amount']) / 1000000000
                                     Operation = '<a href="https://tonviewer.com/transaction/' + trx_details[
-                                        'TXid'] + '">Received:</a> ' + str(price) + ' ' + str(trx_details['Token Name 2'])
+                                        'TXid'] + '">Received:</a> ' + str(price) + ' ' + str(
+                                        trx_details['Token Name 2'])
 
                                     fromid = '<b>From: </b>' + ' <a href="https://tonviewer.com/' + trx_details[
                                         'Sender Address'] + '">' + format_wallets(
@@ -1813,7 +1859,7 @@ async def track_wallets_websocket(bot):
                                                 Operation += f' ({dolarbal} $)'
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👤' + '<a href="https://tonviewer.com/' + str(response_data['params'][
-                                                                                                    "account_id"]) + '">' + header + '</a> 👛' + '\n  ⬅️' + Operation + '\n' + fromid
+                                                                                                    "account_id"]) + '">' + header + '</a> 💼' + '\n  ⬅️' + Operation + '\n' + fromid
                                             await bot.send_message(chat_id, msg, parse_mode='HTML',
                                                                    disable_web_page_preview=True)
                                         # --------------------------
@@ -1899,7 +1945,7 @@ async def track_wallets_websocket(bot):
                                             header = Wallets[str(response_data['params']["account_id"])]['tag'][chat_id]
                                             msg = '👨‍💻 <a href="https://tonviewer.com/' + str(response_data['params'][
                                                                                                   "account_id"]) + '">' + header + '</a>\n' + Operation + '\n' + fromid
-                                            # await bot.send_message(chat_id, msg, parse_mode='HTML',disable_web_page_preview=True)   
+                                            # await bot.send_message(chat_id, msg, parse_mode='HTML',disable_web_page_preview=True)
                                             await bot.send_photo(chat_id, photo=tokenchart, caption=msg,
                                                                  parse_mode='HTML')
                                             # ----------------------------------
