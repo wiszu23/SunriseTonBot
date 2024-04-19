@@ -290,9 +290,9 @@ async def handle_button_click(call):
                             if not wallets:
 
                                 msg = f"<b>{language['You Have No Saved Wallets']}</b>"
-                                Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+                                Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
                                 markup1.add(Add)
-                                Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}",
+                                Back = types.InlineKeyboardButton(f"🔙 {language['Back']}",
                                                                   callback_data="back")
                                 markup1.add(Back)
 
@@ -338,9 +338,9 @@ async def handle_button_click(call):
                                     Nextpage = types.InlineKeyboardButton(">>", callback_data="next")
                                     markup1.row(current, Nextpage)
                                 msg = f"<b>{language['Choose Saved Wallet']}</b>"
-                                Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+                                Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
                                 markup1.add(Add)
-                                Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}",
+                                Back = types.InlineKeyboardButton(f"🔙 {language['Back']}",
                                                                   callback_data="back")
                                 markup1.add(Back)
                                 # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
@@ -384,9 +384,9 @@ async def handle_button_click(call):
         if not wallets:
 
             msg = f'<b>{language["You Have No Saved Wallets"]}</b>'
-            Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+            Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
             markup1.row(Add)
-            Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup1.row(Back)
             # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
             try:
@@ -426,9 +426,9 @@ async def handle_button_click(call):
                 Nextpage = types.InlineKeyboardButton(">>", callback_data="next")
                 markup1.row(current, Nextpage)
             msg = f"<b>{language['Choose Saved Wallet']}</b>"
-            Adds = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+            Adds = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
             markup1.row(Adds)
-            Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup1.row(Back)
             # print(call.message.message_id)
             # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
@@ -467,12 +467,12 @@ async def handle_button_click(call):
         swap = types.InlineKeyboardButton(f"{emojis[0]} {language['Swap']}", callback_data="swap")
         nft = types.InlineKeyboardButton(f"{emojis[1]} {language['NFT']}", callback_data="nft")
         markup7.row(swap, nft)
-        balanc = types.InlineKeyboardButton(language["Balance"], callback_data="balance")
+        balanc = types.InlineKeyboardButton(f"🔍 {language['Balance']}", callback_data="balance")
         markup7.row(balanc)
         tag = types.InlineKeyboardButton(f"\U0001F3F7 {language['Rename']}", callback_data="tag")
         remove = types.InlineKeyboardButton(f"\U00002716 {language['Delete']}", callback_data="remove")
         markup7.row(tag, remove)
-        back = types.InlineKeyboardButton(language["Back"], callback_data="back")
+        back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup7.row(back)
         msg = f"<b>{language['Wallet Details']}</b>"
 
@@ -487,7 +487,6 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
-
 
     elif call.data == 'balance':
         for row in call.message.reply_markup.keyboard:
@@ -513,7 +512,7 @@ async def handle_button_click(call):
 
                 amount = round(float(walletcheck['balance']), 0) * float(tonprice)
                 amountformated = formatexpchart(amount)
-                msgbalance = f"<b>{language['Wallet Balance']}</b>: \n🪙 " + str(
+                msgbalance = f"🔍 <b>{language['Wallet Balance']}</b>: \n‎\n🪙 " + str(
                     int(round(float(walletcheck['balance']), 0))) + ' TON' + ' (' + str(amountformated) + '$)'
 
             if len(walletjettons) > 9:
@@ -566,9 +565,9 @@ async def handle_button_click(call):
         if not wallets:
 
             msg = f"<b>{language['You Have No Saved Wallets']}</b>"
-            Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+            Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
             markup1.add(Add)
-            Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup1.add(Back)
 
             try:
@@ -613,9 +612,9 @@ async def handle_button_click(call):
                 Nextpage = types.InlineKeyboardButton(">>", callback_data="next")
                 markup1.row(current, Nextpage)
             msg = f"<b>{language['Choose Saved Wallet']}</b>"
-            Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+            Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
             markup1.add(Add)
-            Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup1.add(Back)
             try:
                 await bot.edit_message_text(chat_id=call.message.chat.id,
@@ -661,9 +660,9 @@ async def handle_button_click(call):
             Nextpage = types.InlineKeyboardButton(">>", callback_data="nextnext")
             markup1.row(current, Nextpage)
         msg = f"<b>{language['Choose Saved Wallet']}</b>"
-        Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+        Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
         markup1.add(Add)
-        Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup1.add(Back)
         try:
             await bot.edit_message_text(chat_id=call.message.chat.id,
@@ -676,6 +675,7 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
+
     elif call.data == "previous":
         markup1 = types.InlineKeyboardMarkup()
         if len(wallets) < 8:
@@ -705,9 +705,9 @@ async def handle_button_click(call):
             Nextpage = types.InlineKeyboardButton(">>", callback_data="next")
             markup1.row(current, Nextpage)
         msg = f"<b>{language['Choose Saved Wallet']}</b>"
-        Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+        Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
         markup1.add(Add)
-        Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup1.add(Back)
         try:
             await bot.edit_message_text(chat_id=call.message.chat.id,
@@ -813,22 +813,24 @@ async def handle_button_click(call):
                     print("message cant be sent")
                 else:
                     raise
-        elif language['You can request a withdrawal after earning $100.'] in call.message.text or language[
-            'Monthly list'] in call.message.text:
+        elif (language['You can request a withdrawal after earning $100.'] in call.message.text
+              or language['Monthly list'] in call.message.text
+              or 'Thank' in call.message.text):
             markup8 = types.InlineKeyboardMarkup()
-            withdraw = types.InlineKeyboardButton(language['Withdraw'], callback_data="withdraw")
+            withdraw = types.InlineKeyboardButton(f"🛍️{language['Withdraw']}", callback_data="withdraw")
             markup8.row(withdraw)
-            info = types.InlineKeyboardButton(f"🛈 {language['Info']}", callback_data="info")
-            purchase = types.InlineKeyboardButton(language['List'], callback_data="list")
+            info = types.InlineKeyboardButton(f"ℹ️ {language['Info']}", callback_data="info")
+            purchase = types.InlineKeyboardButton(f"📝 {language['List']}", callback_data="list")
             markup8.add(info, purchase)
-            Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup8.row(Back)
             UserBalance = await readUserdata(str(call.from_user.id))
             UserReferrals = await getUserReferrals(str(call.from_user.id))
             referalcode = hashReferal(str(call.from_user.id))
             referallink = f'https://t.me/TonNetworkTracker_bot?start={referalcode}'
-            msgreferal = f" \n\n{referallink}\n\n👥 {language['Your Referrals']}: {len(UserReferrals)}/10    \n\n💰 {language['Your Balance']}: {UserBalance[4]}$"
-            # <b>{language['Your Referal Code']}: </b>{referalcode}
+            msgreferal = (
+                f"________ 👇🏼<b>ONE CLICK</b>👇🏼 ________\n\n<code>{referallink}</code>\n_________________________________\n\n\n👥 "
+                f"<b>{language['Your Referrals']}:</b> {len(UserReferrals)}/10    \n\n💰 <b>{language['Your Balance']}:</b> {UserBalance[4]}$")            # <b>{language['Your Referal Code']}: </b>{referalcode}
             try:
                 await bot.edit_message_text(chat_id=call.message.chat.id,
                                             message_id=call.message.message_id,
@@ -847,9 +849,9 @@ async def handle_button_click(call):
             if not wallets:
 
                 msg = f"<b>{language['You Have No Saved Wallets']}</b>"
-                Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+                Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
                 markup1.add(Add)
-                Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+                Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
                 markup1.add(Back)
 
                 try:
@@ -892,9 +894,9 @@ async def handle_button_click(call):
                     Nextpage = types.InlineKeyboardButton(">>", callback_data="next")
                     markup1.row(current, Nextpage)
                 msg = f"<b>{language['Choose Saved Wallet']}</b>"
-                Add = types.InlineKeyboardButton(f"\U00002795 {language['Add']}", callback_data="Add")
+                Add = types.InlineKeyboardButton(f"➕ {language['Add']}", callback_data="Add")
                 markup1.add(Add)
-                Back = types.InlineKeyboardButton(f"\U000025C0 {language['Back']}", callback_data="back")
+                Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
                 markup1.add(Back)
                 try:
                     await bot.edit_message_text(chat_id=call.message.chat.id,
@@ -916,16 +918,16 @@ async def handle_button_click(call):
             chartem = 'ON' if (userSetting[1] == 'True') else 'OFF'
             valdolem = 'ON' if (userSetting[2] == 'True') else 'OFF'
             markup6 = types.InlineKeyboardMarkup()
-            charts = types.InlineKeyboardButton(f"{language['Charts']}: {chartem}", callback_data="charts")
+            charts = types.InlineKeyboardButton(f"📊 {language['Charts']}: {chartem}", callback_data="charts")
             markup6.add(charts)
-            valueindol = types.InlineKeyboardButton(f"{language['Value In Dollar']}: {valdolem}",
+            valueindol = types.InlineKeyboardButton(f"💲 {language['Value In Dollar']}: {valdolem}",
                                                     callback_data="dolarval")
             markup6.add(valueindol)
-            lang_button_label = f"{language['Language']}: {langflag.get(lang, lang)}"
+            lang_button_label = f"{langflag.get(lang, lang)} {language['Language']}"
             lang = types.InlineKeyboardButton(lang_button_label, callback_data="lang")
-            prog = types.InlineKeyboardButton(f"AD's: {ad}", callback_data="prog")
+            prog = types.InlineKeyboardButton(f"📣 AD's: {ad}", callback_data="prog")
             markup6.add(lang, prog)
-            Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup6.add(Back)
             msgsetting = f"\U00002699  <b>{language['Your Settings']}</b>"
 
@@ -987,11 +989,11 @@ async def handle_button_click(call):
             nfts = f"🌅️ {language['NFTs']} {nftss}/{allowednfts}"
             msgperh = f"{allowedmsgperh} {language['Messages Per Hour']}"
 
-            purchase = types.InlineKeyboardButton(f"{language['Purchase']}", callback_data="purchase")
+            purchase = types.InlineKeyboardButton(f"💳 {language['Purchase']}", callback_data="purchase")
             markup6.add(purchase)
-            Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup6.add(Back)
-            msgsub = f"<b>{language['Subscription']} {language['Plan']}:</b> {plan}\n \n{until}\n \n{walletss}\n{coin}\n{nfts}\n{msgperh}"
+            msgsub = f"<b>{language['Subscription']} {language['Plan']}:</b> \n {plan}\n {until}\n\n{walletss}\n{coin}\n{nfts}\n{msgperh}"
 
             try:
                 await bot.edit_message_text(chat_id=call.message.chat.id,
@@ -1047,11 +1049,11 @@ async def handle_button_click(call):
         nfts = f"🌅️ {language['NFTs']} {nftss}/{allowednfts}"
         msgperh = f"{allowedmsgperh} {language['Messages Per Hour']}"
 
-        purchase = types.InlineKeyboardButton(f"{language['Purchase']}", callback_data="purchase")
+        purchase = types.InlineKeyboardButton(f"💳 {language['Purchase']}", callback_data="purchase")
         markup6.add(purchase)
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup6.add(Back)
-        msgsub = f"<b>{language['Subscription']} {language['Plan']}:</b> {plan}\n \n{until}\n \n{walletss}\n{coin}\n{nfts}\n{msgperh}"
+        msgsub = f"<b>{language['Subscription']} {language['Plan']}:</b> {plan}\n \n{until}\n{walletss}\n{coin}\n{nfts}\n{msgperh}"
 
         # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
         try:
@@ -1094,8 +1096,8 @@ async def handle_button_click(call):
                 allowedmsgperh = 1000
                 monthly = 100
                 Annual = 800
-            month = types.InlineKeyboardButton(f"{language['Monthly']} ({monthly} $)", callback_data="Monthly")
-            year = types.InlineKeyboardButton(f"{language['Annual']} ({Annual} $)", callback_data="Annual")
+            month = types.InlineKeyboardButton(f"🕑️ {language['Monthly']} ({monthly} $)", callback_data="Monthly")
+            year = types.InlineKeyboardButton(f"📅 {language['Annual']} ({Annual} $)", callback_data="Annual")
             markupPur.row(month, year)
 
             msgPur = f"<b>{plan} {language['PLAN']}</b>\n - {allowedwallets} {language['Wallets']}\n - {allowedcoins} {language['Coins']}\n - {allowednfts} {language['NFTs']}\n - {allowedmsgperh} {language['Messages Per Hour']}"
@@ -1114,12 +1116,11 @@ async def handle_button_click(call):
                         raise
                 messageids.append(message.id)
             else:
-
                 if plan == 'PRO':
                     calback = 'back'
                     for idi in messageids:
                         calback += '/' + str(idi)
-                    Back = types.InlineKeyboardButton(language['Back'], callback_data=calback)
+                    Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data=calback)
                     markupPur.row(Back)
                 try:
                     planmsg = await bot.send_message(chat_id=call.message.chat.id, text=msgPur, reply_markup=markupPur,
@@ -1133,6 +1134,7 @@ async def handle_button_click(call):
                         print("message cant be sent")
                     else:
                         raise
+
     elif call.data in ["Monthly", "Annual"]:
         print(call.data)
         tonPrice = 0
@@ -1189,21 +1191,21 @@ async def handle_button_click(call):
             # else:
             #     raise
 
-
     elif call.data == "ref":
         markup8 = types.InlineKeyboardMarkup()
-        withdraw = types.InlineKeyboardButton(language['Withdraw'], callback_data="withdraw")
+        withdraw = types.InlineKeyboardButton(f"🛍️{language['Withdraw']}", callback_data="withdraw")
         markup8.row(withdraw)
         info = types.InlineKeyboardButton(f"ℹ️ {language['Info']}", callback_data="info")
-        purchase = types.InlineKeyboardButton(language['List'], callback_data="list")
+        purchase = types.InlineKeyboardButton(f"📝 {language['List']}", callback_data="list")
         markup8.add(info, purchase)
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup8.row(Back)
         UserBalance = await readUserdata(str(call.from_user.id))
         UserReferrals = await getUserReferrals(str(call.from_user.id))
         referalcode = hashReferal(str(call.from_user.id))
         referallink = f'https://t.me/TonNetworkTracker_bot?start={referalcode}'
-        msgreferal = f" \n\n{referallink}\n\n👥 {language['Your Referrals']}: {len(UserReferrals)}/10    \n\n💰 {language['Your Balance']}: {UserBalance[4]}$"
+        msgreferal = (f"________ 👇🏼<b>ONE CLICK</b>👇🏼 ________\n\n<code>{referallink}</code>\n_________________________________\n\n\n👥 "
+                      f"<b>{language['Your Referrals']}:</b> {len(UserReferrals)}/10    \n\n💰 <b>{language['Your Balance']}:</b> {UserBalance[4]}$")
         # <b>{language['Your Referal Code']}: </b>{referalcode}
 
         # await deleteMsg(bot, call.message.chat.id, call.message.message_id)
@@ -1217,9 +1219,44 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
+
+    elif call.data == "withdraw":
+        user_data = await readUserdata(str(call.from_user.id))
+        UserBalance = int(user_data[4])
+        if UserBalance < 100:
+            msgwithdraw = "You haven't recommended us to enough people 🙁"
+            try:
+                await bot.send_message(chat_id=call.message.chat.id,
+                                       text=msgwithdraw,
+                                       parse_mode='HTML')
+            except asyncio_helper.ApiException as e:
+                if e.result.status_code in (400, 401, 403, 404, 429, 500, 502):
+                    print("message cant be sent")
+                else:
+                    raise
+        else:
+            markup11 = types.InlineKeyboardMarkup()
+            contact = types.InlineKeyboardButton("📩 Contact", url='https://t.me/SunriseTonBotContact')
+            markup11.row(contact)
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
+            markup11.row(Back)
+            msgwithdraw = (
+                "<b>Thank you very much for your support!</b> \n‎\n Write to us to withdraw your money! \n‎")
+            try:
+                await bot.edit_message_text(chat_id=call.message.chat.id,
+                                            message_id=call.message.message_id,
+                                            text=msgwithdraw,
+                                            reply_markup=markup11,
+                                            parse_mode='HTML')
+            except asyncio_helper.ApiException as e:
+                if e.result.status_code in (400, 401, 403, 404, 429, 500, 502):
+                    print("message cant be sent")
+                else:
+                    raise
+
     elif call.data == "info":
         markup9 = types.InlineKeyboardMarkup()
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup9.row(Back)
         listmsg = f" {language['If you invite 10 people who purchase the STANDARD package for a month or higher, you will receive the STANDARD package for a year for free.']}\n\n{language['If a person purchases the STANDARD or higher package for a year, you gain 10 percent on its purchase.']}\n\n {language['The right to a bonus is possible once for each new user.']} \n\n {language['You can request a withdrawal after earning $100.']}"
         try:
@@ -1233,9 +1270,10 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
+
     elif call.data == "list":
         markup9 = types.InlineKeyboardMarkup()
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup9.row(Back)
         UserReferrals = await getUserReferrals(str(call.from_user.id))
         monthy = ''
@@ -1264,11 +1302,12 @@ async def handle_button_click(call):
                 print("message cant be sent")
             else:
                 raise
+
     elif call.data == "faq":
         markup10 = types.InlineKeyboardMarkup()
         contact = types.InlineKeyboardButton("📩 Contact", url='https://t.me/SunriseTonBotContact')
         markup10.row(contact)
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup10.row(Back)
         msgcontact = (
             "<b>Banner on Sunrise Ton Bot:</b> \n ⭐️ $40 for 1 day \n ⭐️ $100 for 3 days \n "
@@ -1301,17 +1340,17 @@ async def handle_button_click(call):
         chartem = 'ON' if (userSetting[1] == 'True') else 'OFF'
         valdolem = 'ON' if (userSetting[2] == 'True') else 'OFF'
         markup6 = types.InlineKeyboardMarkup()
-        charts = types.InlineKeyboardButton(f"{language['Charts']}: {chartem}", callback_data="charts")
+        charts = types.InlineKeyboardButton(f"📊 {language['Charts']}: {chartem}", callback_data="charts")
         markup6.add(charts)
-        valueindol = types.InlineKeyboardButton(f"{language['Value In Dollar']}: {valdolem}", callback_data="dolarval")
+        valueindol = types.InlineKeyboardButton(f"💲 {language['Value In Dollar']}: {valdolem}", callback_data="dolarval")
         markup6.add(valueindol)
         # Assuming langflag is a dictionary mapping language codes to their flag emoji or name
-        lang_button_label = f"{language['Language']}: {langflag.get(lang, lang)}"
+        lang_button_label = f"{langflag.get(lang, lang)} {language['Language']}"
         lang = types.InlineKeyboardButton(lang_button_label, callback_data="lang")
         # prog = types.InlineKeyboardButton(language['In Progress'], callback_data="prog")
-        prog = types.InlineKeyboardButton(f"AD's: {ad}", callback_data="prog")
+        prog = types.InlineKeyboardButton(f"📣 AD's: {ad}", callback_data="prog")
         markup6.add(lang, prog)
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup6.add(Back)
         msgsetting = f"\U00002699  <b>{language['Your Settings']}</b>"
 
@@ -1354,18 +1393,18 @@ async def handle_button_click(call):
             chartem = 'ON' if (userSetting[1] == 'True') else 'OFF'
             valdolem = 'ON' if (userSetting[2] == 'True') else 'OFF'
             markup6 = types.InlineKeyboardMarkup()
-            charts = types.InlineKeyboardButton(f"{language['Charts']}: {chartem}", callback_data="charts")
+            charts = types.InlineKeyboardButton(f"📊 {language['Charts']}: {chartem}", callback_data="charts")
             markup6.add(charts)
-            valueindol = types.InlineKeyboardButton(f"{language['Value In Dollar']}: {valdolem}",
+            valueindol = types.InlineKeyboardButton(f"💲 {language['Value In Dollar']}: {valdolem}",
                                                     callback_data="dolarval")
             markup6.add(valueindol)
             # Assuming langflag is a dictionary mapping language codes to their flag emoji or name
-            lang_button_label = f"{language['Language']}: {langflag.get(lang, lang)}"
+            lang_button_label = f"{langflag.get(lang, lang)} {language['Language']}"
             lang = types.InlineKeyboardButton(lang_button_label, callback_data="lang")
             # prog = types.InlineKeyboardButton(language['In Progress'], callback_data="prog")
-            prog = types.InlineKeyboardButton(f"AD's: {ad}", callback_data="prog")
+            prog = types.InlineKeyboardButton(f"📣 AD's: {ad}", callback_data="prog")
             markup6.add(lang, prog)
-            Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+            Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             markup6.add(Back)
             msgsetting = f"\U00002699  <b>{language['Your Settings']}</b>"
 
@@ -1380,7 +1419,6 @@ async def handle_button_click(call):
                     print("message cant be sent")
                 else:
                     raise
-
 
     elif call.data == "lang":
         markup6 = types.InlineKeyboardMarkup()
@@ -1407,7 +1445,7 @@ async def handle_button_click(call):
         zh = types.InlineKeyboardButton("🇨🇳 ZH", callback_data="zh")
         markup6.row(uzb, zh)
 
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup6.row(Back)
         msgsetting = f"<b>{language['Choose Prefered Language']}: </b>"
 
@@ -1423,7 +1461,6 @@ async def handle_button_click(call):
             else:
                 raise
 
-
     elif call.data in ["charts", "dolarval", "eng", "fr", "pl", "ar", "fa", "be", "rum", "uzb", "ua", "ru", "de", "es",
                        "ja", "zh"]:
 
@@ -1432,7 +1469,6 @@ async def handle_button_click(call):
         if not user:
             file_path = 'languages/eng.yml'
         else:
-
             if str(user[5]) != 'free':
                 await verifyTimestamp(user[0])
             lang = user[3]
@@ -1448,15 +1484,15 @@ async def handle_button_click(call):
         chartem = 'ON' if userSetting['charts'] else 'OFF'
         valdolem = 'ON' if userSetting['dolarval'] else 'OFF'
         markup6 = types.InlineKeyboardMarkup()
-        charts = types.InlineKeyboardButton(f"{language['Charts']}: {chartem}", callback_data="charts")
+        charts = types.InlineKeyboardButton(f"📊 {language['Charts']}: {chartem}", callback_data="charts")
         markup6.add(charts)
-        valueindol = types.InlineKeyboardButton(f"{language['Value In Dollar']}: {valdolem}", callback_data="dolarval")
+        valueindol = types.InlineKeyboardButton(f"💲 {language['Value In Dollar']}: {valdolem}", callback_data="dolarval")
         markup6.add(valueindol)
-        lang_button_label = f"{language['Language']}: {langflag.get(lang, lang)}"
+        lang_button_label = f"{langflag.get(lang, lang)} {language['Language']}"
         lang = types.InlineKeyboardButton(lang_button_label, callback_data="lang")
-        prog = types.InlineKeyboardButton(f"AD's: {ad}", callback_data="prog")
+        prog = types.InlineKeyboardButton(f"📣 AD's: {ad}", callback_data="prog")
         markup6.add(lang, prog)
-        Back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+        Back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
         markup6.add(Back)
         msgsetting = f"\U00002699  <b>{language['Your Settings']}</b>"
 
@@ -1495,12 +1531,12 @@ async def handle_button_click(call):
             swap = types.InlineKeyboardButton(f"{swapemoj} {language['Swap']}", callback_data="swap")
             nft = types.InlineKeyboardButton(f"{nftemoj} {language['NFT']}", callback_data="nft")
             new_markup.row(swap, nft)
-            balanc = types.InlineKeyboardButton(f"{language['Balance']}", callback_data="balance")
+            balanc = types.InlineKeyboardButton(f"🔍 {language['Balance']}", callback_data="balance")
             new_markup.row(balanc)
             tag = types.InlineKeyboardButton(f"\U0001F3F7 {language['Rename']}", callback_data="tag")
             remove = types.InlineKeyboardButton(f"\U00002716 {language['Delete']}", callback_data="remove")
             new_markup.row(tag, remove)
-            back = types.InlineKeyboardButton(language['Back'], callback_data="back")
+            back = types.InlineKeyboardButton(f"🔙 {language['Back']}", callback_data="back")
             new_markup.row(back)
             msg = f" <b> {language['Wallet Details']}</b> "
             current_markup_str = serialize_inline_keyboard(call.message.reply_markup)
@@ -1954,7 +1990,6 @@ async def track_wallets_websocket(bot):
         except Exception as e:
             print(f"Connection closed, attempting to reconnect caused by {e}")
             await asyncio.sleep(5)
-
 
 async def main():
     while True:
